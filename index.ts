@@ -1,31 +1,33 @@
-import { createSchema } from 'graphql-yoga'
+import { createSchema, createYoga } from 'graphql-yoga'
 import { createServer } from 'node:http'
-import { createYoga } from 'graphql-yoga'
-import { typeDefs as scalarTypeDefs } from 'graphql-scalars';
+import { typeDefs as scalarTypeDefs } from 'graphql-scalars'
+
+const { PORT: port = `3000` } = Bun.env
+
+const PORT = parseInt(port)
 
 export const schema = createSchema({
   typeDefs: [
     scalarTypeDefs,
     /* GraphQL */ `
-    type Query {
-      hello: String
-    }
-  `,],
+      type Query {
+        hello: String
+      }
+    `,
+  ],
   resolvers: {
     Query: {
-      hello: () => 'world'
-    }
-  }
+      hello: () => 'world',
+    },
+  },
 })
 
+const yoga = createYoga({ schema, landingPage: true, graphiql: true })
 
-const yoga = createYoga({ schema })
- 
 // Pass it into a server to hook into request handlers.
 const server = createServer(yoga)
- 
-// Start the server and you're done!
-server.listen(4000, () => {
-  console.info('Server is running on http://localhost:4000/graphql')
-})
 
+// Start the server and you're done!
+server.listen(PORT, () => {
+  console.info(`Server is running on http://localhost:${PORT}/graphql`)
+})

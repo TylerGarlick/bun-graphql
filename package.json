@@ -3,10 +3,12 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "bun run --hot index.ts"
+    "start": "bun run index.ts",
+    "start:dev": "bun run --hot index.ts"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "prettier": "^3.0.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -15,5 +17,13 @@
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
     "graphql-yoga": "^5.0.0"
+  },
+  "prettier": {
+    "semi": false,
+    "useTabs": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "tabWidth": 2,
+    "arrowParens": "always"
   }
 }
